@@ -1,0 +1,32 @@
+{% block head_content %}
+<title>Update Trainee</title>
+{% endblock %}
+
+{% block main_content %}
+<h1>Update Trainee</h1>
+    
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+    
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="{{ trainee.name }}" required>
+        
+        <label for="Account_id">Account:</label>
+        <select id="Account_id" name="Account_id">
+            {% for account in accounts %}
+                <option value="{{ account.id }}" {% if account.id == trainee.id_obj.id %}selected{% endif %}>{{ account.name }}</option>
+            {% endfor %}
+        </select>
+        <label for="profile_image">Profile_image:</label>
+        <input type="file" id="profile_image" name="profile_image">
+
+
+        
+        <button type="submit">Update Trainee</button>
+    </form>
+    
+    
+{% endblock %}

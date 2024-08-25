@@ -1,0 +1,25 @@
+{%extends 'base.html'%}
+{% block head_content %}
+Trainee - show
+<style>
+    .profileImage{
+        width:100px;
+        height: 100px;
+    }
+</style>
+{%endblock%}
+{% block main_content %}
+<h1>Trainee show data {{id}}</h1>
+
+
+<h1>Trainee Name:{{ trainee.name }}</h1>
+<h1>Account ID: {{ trainee.id_obj.id }}</h1>
+<h1>Account Name: {{ trainee.id_obj.name }}</h1>
+{% if trainee.image %}
+                    <img src="{{ trainee.image.url }}" alt="Profile Image" class="profileImage">
+                {% else %}
+                    No image
+                {% endif %}
+
+{%endblock%}
+

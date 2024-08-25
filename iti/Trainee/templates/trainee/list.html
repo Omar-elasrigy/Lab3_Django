@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block head_content %}
+    <style>
+        table {
+            border: 2px solid black;
+            font-size: 30px;
+            width: 100%;
+            border-collapse: collapse;
+        }
+        td, th {
+            border: 2px solid black;
+            padding: 10px;
+        }
+        a {
+            text-decoration: none;
+            color: green;
+        }
+        .profileImage{
+            width: 50%;
+            height:50%;
+
+        }
+    </style>
+{% endblock %}
+
+{% block main_content %}
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>TRACK_ID</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for trainee in trainees %}
+            <tr>
+                <td>{{ trainee.trainee_id }}</td>
+                <td>{{ trainee.name }}</td>
+                <td>{{ trainee.get_account_id }}</td>
+                <td>
+                {% if trainee.image %}
+                    <img src="{{ trainee.image.url }}" alt="Profile Image" class="profileImage">
+                {% else %}
+                    No image
+                {% endif %}
+                </td>
+                <td>
+                    <a href="{% url 'create' %}">insert row</a> |
+                    <a href="{% url 'delete_trainee' trainee.trainee_id %}">Delete</a>|
+                    <a href="{% url 'show_details_trainee' trainee.trainee_id %}">Show_Details</a>|
+                    <a href="{% url 'update_trainee' trainee.trainee_id %}">Update</a>
+                    
+                    
+                    
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

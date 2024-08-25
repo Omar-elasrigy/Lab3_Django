@@ -1,0 +1,58 @@
+{% block head_content %}
+    <h1>Delete Page</h1>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .link{
+            text-decoration: none;
+            color: black;
+        }
+    </style>
+{% endblock %}
+
+
+
+
+
+{% block main_content %}
+<h1>Are you sure you want to delete "{{ trainee.name }}"?</h1>
+<form method="post" action="{% url 'delete_trainee' trainee.trainee_id %}">
+    {% csrf_token %}
+    <button type="submit">Delete</button>
+    <button><a href="{% url 'list' %}" class="link">Cancel</a></button>
+</form>
+
+
+
+<script>
+$(document).ready(function() {
+    $('.delete-button').on('click', function(event) {
+        event.preventDefault(); 
+
+        var form = $(this).closest('form'); 
+        var url = form.attr('action'); 
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: form.serialize(),
+            headers: {
+                'X-CSRFToken': $('input[name="csrfmiddlewaretoken"]').val() 
+            },
+            success: function(response) {
+                if (response.success) {
+                    
+                    window.location.href = '/trainee/list'; 
+                } else {
+                    
+                    alert('Error deleting trainee.');
+                }
+            },
+            error: function() {
+                
+                alert('An error occurred.');
+            }
+        });
+    });
+});
+</script>
+{% endblock %}
